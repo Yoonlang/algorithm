@@ -1,0 +1,36 @@
+#include <stdio.h>
+#define INF -1087654321
+
+int N;
+int line[100000];
+int front = INF, rear = INF;
+
+int abs(int a){
+    return a >= 0 ? a : -1 * a;
+}
+
+int main(){
+    scanf("%d", &N);
+    for(int i = 0; i < N; i++){
+        scanf("%d", &line[i]);
+    }
+    int i = 0, j = N - 1;
+    while(i < j){
+        int left = line[i];
+        int right = line[j];
+        if(abs(left + right) < abs(rear + front)){
+            front = left;
+            rear = right;
+        }
+        // 둘을 더한 값이 0보다 작으면 음수를 오른쪽으로
+        // 그리디 알고리즘
+        if(left + right < 0){
+            i++;
+        }
+        else{
+            j--;
+        }
+    }
+    printf("%d %d", front, rear);
+    return 0;
+}
