@@ -8,7 +8,7 @@ vector<pair<int, int>> under;
 int map[100][100];
 int visit[100][100];
 int N, M, P, flag = 0;
-int di[4] = {1, -1, 0, 0};
+int di[4] = {1, -1, 0, 0}; 
 int dj[4] = {0, 0, 1, -1};
 
 void Jave(int num, int thro){
