@@ -1,0 +1,27 @@
+//백준 12865번 평범한 배낭
+#include <stdio.h>
+
+int dp[101][100001] = { 0 };
+
+int Max(int a, int b){
+	return a > b? a : b;
+}
+
+int main(){
+    int N, K;
+    scanf("%d %d", &N, &K); // 4 7
+    for(int i = 1; i <= N; i++){
+        int W, V;
+        scanf("%d %d", &W, &V); // 각 무게와 가치
+        for(int j = 1; j <= K; j++){
+            if(W > j){ // 가방에 물건을 못넣을때
+            	dp[i][j] = dp[i - 1][j];
+            }
+            else{ // 이전것이 크냐? 아니면 
+                dp[i][j] = Max(dp[i - 1][j], dp[i - 1][j - W] + V);
+            }
+        }
+    }
+    printf("%d", dp[N][K]);
+    return 0;
+}
