@@ -1,0 +1,41 @@
+//백준 2096 내려가기
+//밑에서 올라간다 생각하면 
+#include <stdio.h>
+
+int Max(int a, int b){
+    return a > b? a : b;
+}
+
+int Min(int a, int b){
+    return a > b? b : a;
+}
+
+int main(){
+    int N;
+    scanf("%d", &N);
+    int x, y, z;
+    int a, b, c;
+    int tempA, tempB, tempC;
+    int A, B, C;
+    scanf("%d %d %d", &a, &b, &c);
+    A = a;
+    B = b;
+    C = c;
+    for(int i = 1; i < N; i++){
+        scanf("%d %d %d", &x, &y, &z);
+        tempA = a;
+        tempB = b;
+        tempC = c;
+        a = x + Min(tempA, tempB);
+        b = y + Min(tempA, Min(tempB, tempC));
+        c = z + Min(tempB, tempC);
+        tempA = A;
+        tempB = B;
+        tempC = C;
+        A = x + Max(tempA, tempB);
+        B = y + Max(tempA, Max(tempB, tempC));
+        C = z + Max(tempB, tempC);
+    }
+    printf("%d %d", Max(A, Max(B, C)), Min(a, Min(b, c)));
+    return 0;
+}
