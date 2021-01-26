@@ -1,0 +1,54 @@
+// DFS와 DP를 함께 사용하는 문제
+// 1520
+#include <stdio.h>
+
+int map[501][501];
+int dp[501][501];
+int N, M;
+
+int di[4] = {1, -1, 0, 0};
+int dj[4] = {0, 0, 1, -1};
+
+int DFS(int i, int j){
+    if(i == N - 1 && j == M - 1){
+        dp[i][j] = 1;
+        return 1;
+    }
+    int res = 0;
+    for(int k = 0; k < 4; k++){
+        int ni = i + di[k];
+        int nj = j + dj[k];
+        if(ni < 0 || ni >= N || nj < 0 || nj >= M){
+            continue;
+        }
+        if(map[ni][nj] >= map[i][j]){
+            continue;
+        }
+        if(dp[ni][nj] == 0){
+            ;
+        }
+        else if(dp[ni][nj] != -1){
+            res += dp[ni][nj];
+        }
+        else{
+            res += DFS(ni, nj);
+        }
+    }
+    if(res > dp[i][j]){
+        dp[i][j] = res;
+    }
+    return res;
+}
+
+int main(){
+    scanf("%d %d", &N, &M);
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
+            scanf("%d", &map[i][j]);
+            dp[i][j] = -1;
+        }
+    }
+    DFS(0, 0);
+    printf("%d", dp[0][0]);
+    return 0;
+}
